@@ -102,6 +102,10 @@ exports.createServer = function (websocketListener) {
       }
     }).addListener("end", function () {
       socket.end();
+    }).addListener("error", function (err) {
+	sys.debug('Error' + sys.inspect(err));
+    }).addListener("timeout", function (err) {
+	sys.debug('Timeout');
     }).addListener("close", function () {
       if (handshaked) { // don't emit close from policy-requests
         emitter.emit("close");
